@@ -31,24 +31,20 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    # APP
     'accounts',
     'movies',
     'community',
-
-    # DRF
     'rest_framework',
     'rest_framework.authtoken',
+    'dj_rest_auth',
 
-    # REST_AUTH
-    # 'dj_rest_auth',
+    'django.contrib.sites',
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
-    'corsheaders',
+    'dj_rest_auth.registration',
 
-    # 'dj_rest_auth.registration',
-    'django.contrib.sites',
+    'corsheaders',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -65,43 +61,32 @@ REST_FRAMEWORK = {
         # 'rest_framework.permissions.IsAuthenticated',
         'rest_framework.authentication.TokenAuthentication',
     ],
-    # # permission
-    # 'DEFAULT_PERMISSION_CLASSES': [
-    #     'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
-    #     'rest_framework.authentication.SessionAuthentication',
-    #     'rest_framework.authentication.BasicAuthentication',    ],
+    # permission
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.AllowAny',
+    ],
 }
 
+REST_AUTH = {
+'REGISTER_SERIALIZER': 'accounts.serializers.SignUpSerializer',
+}
 
 MIDDLEWARE = [
-    'corsheaders.middleware.CorsMiddleware',
-    'allauth.account.middleware.AccountMiddleware',
-
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    "corsheaders.middleware.CorsMiddleware",
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'allauth.account.middleware.AccountMiddleware',
 ]
 
 CORS_ALLOWED_ORIGINS = [
     'http://127.0.0.1:5173',
     'http://localhost:5173',
 ]
-
-# dj-rest-auth가 email 을 필수적으로 사용하도록 구현된 것을 변경
-ACCOUNT_EMAIL_REQUIRED = False
-ACCOUNT_EMAIL_VERIFICATION = None
-
-# allauth 패키지에서 제공하는 인증 백엔드를 모두 사용
-AUTHENTICATION_BACKENDS = (
-    # django 기본 인증 백엔드
-    "django.contrib.auth.backends.ModelBackend",
-    # django-allauth 패키지에서 제공하는 인증 백엔드 클래스
-    "allauth.account.auth_backends.AuthenticationBackend",
-)
 
 ROOT_URLCONF = 'socrates.urls'
 
@@ -123,6 +108,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'socrates.wsgi.application'
 
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
@@ -130,9 +116,10 @@ WSGI_APPLICATION = 'socrates.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+        'NAME': BASE_DIR / "db.sqlite3",
+    },
 }
+
 
 
 # Password validation
@@ -180,3 +167,5 @@ MEDIA_ROOT = BASE_DIR / 'media'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'accounts.User'
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

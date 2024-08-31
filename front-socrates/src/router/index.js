@@ -1,129 +1,118 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
+import { createRouter, createWebHistory } from 'vue-router'
+import MainView from '@/views/main-page/MainView.vue'
+import OnBoardingView from '@/views/main-page/OnBoardingView.vue'
+import TestView from '@/views/main-page/TestView.vue'
+import SearchMoviesView from '@/views/main-page/SearchMoviesView.vue'
 
-// 메인 페이지(movies)
-import HomeView from '@/views/Movies/HomeView'
+import LoginView from '@/views/accounts/LogInView.vue'
+import SignUpView from '@/views/accounts/SignUpView.vue'
+import ProfilePage from '@/views/accounts/ProfilePage.vue'
+import UpdateProfile from '@/views/accounts/UpdateProfile.vue'
 
-// 프로필, 로그인(account)
-import LoginFormView from '@/views/Accounts/LoginFormView'
-import ProfilePage from '@/views/Profile/ProfilePage'
-import PersonalProfileEdit from '@/views/Profile/PersonalProfileEdit'
-import PasswordChange from '@/views/Profile/PasswordChange'
-import PasswordFind from '@/views/Profile/PasswordFind'
-import PersonalProfile from '@/views/Profile/PersonalProfile'
+import CategoryCreateView from '@/views/community/CategoryCreateView.vue'
+import CommunityView from '@/views/community/CommunityView.vue'
+import CreatePostView from '@/views/community/CreatePostView.vue'
+import PostDetailView from '@/views/community/PostDetailView.vue'
+import PostUpdateView from '@/views/community/PostUpdateView.vue'
 
-// 리뷰, 댓글(community)
-import CommunityView from '@/views/Community/CommunityView'
-import ReviewNewView from '@/views/Community/ReviewNewView'
-import ReviewDetailView from '@/views/Community/ReviewDetailView.vue'
-import ReviewEditView from '@/views/Community/ReviewEditView'
+const router = createRouter({
+  history: createWebHistory(import.meta.env.BASE_URL),
+  routes: [
+    {
+      path: '/',
+      name: 'OnBoarding',
+      component: OnBoardingView
+    },
+    {
+      path: '/main',
+      name: 'Main',
+      component: MainView
+    },
+    {
+      path: '/login',
+      name: 'Login',
+      component: LoginView
+    },
+    {
+      path: '/signup',
+      name: 'SignUp',
+      component: SignUpView
+    },
+    {
+      path: '/community',
+      name: 'Community',
+      component: CommunityView
+    },
+    {
+      path: '/test',
+      name: 'Test',
+      component: TestView
+    },
 
-// 에러 페이지
-import NotFound404 from '@/components/Accounts/NotFound404.vue'
+    // Community Router
+    {
+      path: '/category',
+      name: 'category',
+      component: CategoryCreateView
+    },
+    {
+      path: '/create',
+      name: 'CreatePost',
+      component: CreatePostView
+    },
+    {
+      path: '/detail/:pk',
+      name: 'detail',
+      component: PostDetailView
+    },
+    {
+      path: '/update/:pk',
+      name: 'postUpdate',
+      component: PostUpdateView
+    },
 
-// 어드민 페이지
-import AdminPage from '@/views/Admin/AdminPage.vue'
-import MovieCreation from '@/views/Admin/MovieCreation.vue'
+  
+    // 프로필 페이지
+    {
+      path: '/profile',
+      name: 'ProfilePage',
+      component: ProfilePage
+    },
+    // 프로필 수정
+    {
+      path: '/profile/edit',
+      name: 'UpdateProfile',
+      component: UpdateProfile
+    },
+    {
+      path: '/search',
+      name: 'SearchMoviesView',
+      component: SearchMoviesView
+    },
+    // 404 Not Found Error
+    // {
+    //   path: '/errors/404NotFound',
+    //   name: 'NotFound404',
+    //   component: NotFound404
+    // },
+  ]
+})
 
 
-Vue.use(VueRouter)
+import { useAuthStore } from '@/stores/auth'
 
-const routes = [
-  // 메인 홈
-  {
-    path: '/',
-    name: 'HomeView',
-    component: HomeView
-  },
-  // 어드민 페이지(테스트 중)
-  {
-    path: '/adminpage',
-    name: 'AdminPage',
-    component: AdminPage
-  },
-  // 자기자신 프로필
-  {
-    path: '/profile',
-    name: 'ProfilePage',
-    component: ProfilePage
-  },
-  // 프로필 수정
-  {
-    path: '/profile/edit',
-    name: 'PersonalProfileEdit',
-    component: PersonalProfileEdit
-  },
-  // 상대방 프로필
-  {
-    path: '/profile/:userId',
-    name: 'PersonalProfile',
-    component: PersonalProfile
-  },
-  // 비밀번호 변경
-  {
-    path: '/password/change',
-    name: 'PasswordChange',
-    component: PasswordChange
-  },
-  // 비밀번호 찾기
-  {
-    path: '/password/find',
-    name: 'PasswordFind',
-    component: PasswordFind
-  },
-  // 로그인
-  {
-    path: '/login',
-    name: 'LoginFormView',
-    component: LoginFormView
-  },
-  // 커뮤니티 메인(전체 게시글 조회)
-  {
-    path: '/community',
-    name: 'CommunityView',
-    component: CommunityView
-  },
-  // 게시글 생성
-  {
-    path: '/new',
-    name: 'reviewNew',
-    component: ReviewNewView
-  },
-  // 개별 게시글 조회
-  {
-    path: '/reviews/:reviewId',
-    name: 'review',
-    component: ReviewDetailView
-  },
-  // 개별 게시글 수정
-  {
-    path: '/reviews/:reviewId/edit',
-    name: 'reviewEdit',
-    component: ReviewEditView
-  },
-  // 영화 생성
-  {
-    path: '/moviecreation',
-    name: 'MovieCreation',
-    component: MovieCreation
-  },
-  // 404 Not Found Error
-  {
-    path: '/errors/404NotFound',
-    name: 'NotFound404',
-    component: NotFound404
-  },
-  // 404 redirect
-  {
-    path: '*',
-    redirect: '/errors/404NotFound'
+router.beforeEach((to, from) => {
+  const store = useAuthStore()
+  if ((to.name === 'Main'|| 
+  to.name === 'ProfilePage' || 
+  to.name === 'Test' || 
+  to.name === 'CreatePost') && !store.isLogin) {
+    window.alert('로그인이 필요합니다.')
+    return { name: 'Login' }
   }
-]
-
-const router = new VueRouter({
-  mode: 'history',
-  base: process.env.BASE_URL,
-  routes
+  if ((to.name === 'SignUp' || to.name === 'Login' || to.name === 'OnBoarding') && (store.isLogin)) {
+    return { name: 'Main' }
+  }
 })
 
 export default router
