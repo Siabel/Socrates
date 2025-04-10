@@ -1,8 +1,9 @@
 
-# Four Knights
-👉 [GAME DOWNLOAD](https://www.4knights.co.kr/)</br>
-👉 [GAME BUILD](https://drive.google.com/file/d/1qq7B22QTlkQIdM7Nag6u3Uq9VSMu39rh/view)</br> 
-👉 [SOURCE CODE/ASSETS](https://drive.google.com/file/d/1jZvaquzq2abatI_Ial-WfpkSTaiy_QAx/view?usp=sharing/)</br>
+# Socrates
+<img src = "./README_img/기획배경.png" width=30%>
+<img src = "./README_img/디자인컨셉.png" width=30%><br>
+<img src = "./README_img/서비스컨셉.png" width=30%>
+<img src = "./README_img/와이어프레임&UI디자인.png" width=30%>
 
 ## 목차
 1. [개요](#Socrates)
@@ -33,11 +34,11 @@
 - 사용자가 지정한 `hate_genres` 정보를 기반으로 해당 장르를 포함한 영화를 필터링하여 제외 추천  
 - 영화 평점 데이터를 기반으로 한 향후 확장 계획 포함  
 
-## 설계 문서
+<!-- ## 설계 문서
 - [기획서 및 요구사항 정리](https://nettle-donkey-951.notion.site/dc010b83176b43778419526911acd1e9?pvs=4)  
 - [ERD 모델링](https://nettle-donkey-951.notion.site/ERD-acbacd0e561b4f95a49cd70aa2b59b90?pvs=4)  
 - [API 명세서](https://nettle-donkey-951.notion.site/API-b7975c3500b1483a8fca51dbefbd8315?pvs=4)  
-- [작업 일정표 (Trello)](./img/trello%20할일%20목록.PNG)  
+- [작업 일정표 (Trello)](./img/trello%20할일%20목록.PNG)   -->
 
 ## 개발 환경
 ### 🧩 Front-end  
