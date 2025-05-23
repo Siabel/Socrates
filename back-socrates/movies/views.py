@@ -7,7 +7,7 @@ from .models import *
 from .serializers import *
 from rest_framework.decorators import api_view, permission_classes
 
-TMDB_API_KEY = '7129c2707bdcc88780b426387d0a1c89'
+TMDB_API_KEY = '~'
 
 # 모든 장르들 받아오기
 @api_view(['GET'])
@@ -19,8 +19,6 @@ def genres(request):
 
 
 def sync_tmdb(request):
-    TMDB_API_KEY = '7129c2707bdcc88780b426387d0a1c89'
-
     genre_url = f"https://api.themoviedb.org/3/genre/movie/list?api_key={TMDB_API_KEY}&language=ko-KR"
     genres = requests.get(genre_url).json()
     genre_mapping = {genre['id']: genre['name'] for genre in genres.get('genres', [])}

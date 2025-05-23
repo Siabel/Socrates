@@ -53,8 +53,6 @@ const selectedMovie = ref(null)
 //     }
 //     };
 
-const TMDB_API_KEY = '7129c2707bdcc88780b426387d0a1c89'
-
 const movieURL = `https://api.themoviedb.org/3/movie/popular?api_key=${TMDB_API_KEY}&language=ko-KR&sort_by=popularity.desc&page=1`
 
 onMounted(() => {

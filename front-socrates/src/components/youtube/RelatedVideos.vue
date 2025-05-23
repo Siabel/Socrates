@@ -25,7 +25,6 @@ const props = defineProps({
     selectedMovie: Object,
 })
 
-const apiKey = 'AIzaSyDHTIoqsmHl70-Xp2Wu7AkMpWcZ0XI9ebs'
 // const videoId =  ref(null)
 // const videoUrl = ref(null)
 const videos = ref(null)

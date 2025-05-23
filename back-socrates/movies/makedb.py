@@ -1,7 +1,7 @@
 import requests
 import json
 
-TMDB_API_KEY = '7129c2707bdcc88780b426387d0a1c89'
+TMDB_API_KEY = '~'
 
 def get_movie_datas():
     total_data = []

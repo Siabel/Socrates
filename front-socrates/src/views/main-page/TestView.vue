@@ -23,7 +23,6 @@ import { ref, onMounted } from 'vue';
 import axios from 'axios';
 
 const movies = ref([]);
-const TMDB_API_KEY = '7129c2707bdcc88780b426387d0a1c89';
 
 const getMovies = async () => {
   const totalPages = 5; // 표시할 총 페이지 수
